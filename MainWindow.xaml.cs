@@ -18,8 +18,6 @@ namespace Bevolkerung
             _ = sr.ReadLine();
             while (!sr.EndOfStream) Lakossag.Add(new Allampolgar(sr.ReadLine()));
 
-            grid.ItemsSource = Lakossag;
-
             for (int i = 0; i < 40; i++) cmbFeladat.Items.Add($"{i+1}");
         }
 
@@ -30,9 +28,32 @@ namespace Bevolkerung
             method?.Invoke(this, null);
         }
 
+        public void Reset()
+        {
+            MegoldasMondatos.Content = "";
+            MegoldasLista.ItemsSource = null;
+            grid.ItemsSource = null;
+        }
+
         private void Feladat1()
         {
+            Reset();
+            MegoldasMondatos.Content = Lakossag.Max(x => x.NettoJovedelem);
+        }
+        private void Feladat2()
+        {
+            Reset();
             MegoldasMondatos.Content = Math.Round(Lakossag.Average(x => x.NettoJovedelem),2);
+        }
+        private void Feladat3()
+        {
+            Reset();
+            MegoldasLista.ItemsSource = Lakossag.GroupBy(x => x.Tartomany).Select(x => new { Tartomany = x.Key, Nepszam = x.Count() });
+        }
+        private void Feladat4()
+        {
+            Reset();
+            grid.ItemsSource = Lakossag.Select(x => x.Nemzetiseg = "Angola");
         }
     }
 }
