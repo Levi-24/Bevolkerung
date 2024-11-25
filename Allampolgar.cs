@@ -36,14 +36,14 @@ namespace Bevolkerung
             SzuletesiEv = int.Parse(adatok[2]);
             Suly = int.Parse(adatok[3]);
             Magassag = int.Parse(adatok[4]);
-            Dohanyzik = adatok[5] == "Igen";
+            Dohanyzik = adatok[5] == "igen";
             Nemzetiseg = adatok[6];
             Nepcsoport = adatok[7];
             Tartomany = adatok[8];
             NettoJovedelem = int.Parse(adatok[9]);
             IskolaiVegzettseg = adatok[10];
             PolitikaiNezet = adatok[11];
-            AktivSzavazo = adatok[12] == "Igen";
+            AktivSzavazo = adatok[12] == "igen";
             if (adatok[13] == "NA") { SorFogyasztasEvente = 0; }
             else SorFogyasztasEvente = int.Parse(adatok[13]);
             if (adatok[14] == "NA") { KrumpliFogyasztasEvente = 0; }

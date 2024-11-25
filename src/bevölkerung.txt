@@ -81,7 +81,7 @@ Id;Nem;SzuletesiEv;Suly;Magassag;Dohanyzik;Nemzetiseg;Nepcsoport;Tartomany;Netto
 80;férfi;1987;90;175;igen;orosz; ;Bréma;39000;Hauptschule;egyéb;igen;25;40
 81;nő;1981;72;170;nem;kínai; ;Észak-Rajna-Vesztfália;28000;Fachhochschule;egyéb;nem;50;55
 82;férfi;1984;95;180;igen;német;szász;Hamburg;31000;Realschule;szociáldemokrata;igen;20;50
-83;nő;1989;60;165;nem;török; ;Berlin;33000;Universität;liberális;nem;35;35
+83;nő;1989;60;165;nem;török; ;Berlin;33000;Ubajorniversität;liberális;nem;35;35
 84;férfi;1993;85;177;igen;lengyel; ;Baden-Württemberg;27000;Gymnasium;populista;igen;50;40
 85;nő;1987;68;168;nem;orosz; ;Bréma;32000;Realschule;egyéb;nem;20;NA
 86;férfi;1983;80;175;igen;kínai; ;Észak-Rajna-Vesztfália;35000;Hauptschule;egyéb;igen;35;45
