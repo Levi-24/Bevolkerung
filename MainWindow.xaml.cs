@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Bevolkerung
 {
@@ -60,7 +62,7 @@ namespace Bevolkerung
         private void Feladat6()
         {
             Reset();
-            MegoldasLista.ItemsSource = Lakossag.Where(x => !x.Dohanyzik).Select(x => new { Id = x.Id, HaviJovedelem = x.HaviNettoJovedelem });
+            MegoldasLista.ItemsSource = Lakossag.Where(x => x.Dohanyzik == "nem").Select(x => new { Id = x.Id, HaviJovedelem = x.HaviNettoJovedelem });
         }
         private void Feladat7()
         {
@@ -76,6 +78,28 @@ namespace Bevolkerung
         {
             Reset();
             MegoldasLista.ItemsSource = Lakossag.Where(x => x.Nem == "nő" && x.Tartomany == "Bajorország").Select(x => x.ToString(false)).ToList();
+        }
+        private void Feladat10()
+        {
+            Reset();
+            grid.ItemsSource = Lakossag.OrderByDescending(x => x.NettoJovedelem).Where(x => x.Dohanyzik == "nem").Take(10).ToList();
+        }
+        private void Feladat11()
+        {
+            Reset();
+            grid.ItemsSource = Lakossag.OrderByDescending(x => x.Eletkor).Take(5).ToList();
+        }
+        private void Feladat12()
+        {
+            Reset();
+            MegoldasLista.ItemsSource = Lakossag.Where(x => x.Nemzetiseg == "német")
+                .GroupBy(x => x.Nepcsoport)
+                .SelectMany(csoport => new[] {new { csoport.Key }} //szar
+                .Concat(csoport.Select(x => new
+                {
+                    Tartalom = $"{(x.AktivSzavazo ? "aktív szavazó" : "nem aktív szavazó")}, {x.PolitikaiNezet}"
+                })))
+                .ToList();
         }
     }
 }

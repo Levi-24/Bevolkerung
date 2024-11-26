@@ -16,7 +16,7 @@ namespace Bevolkerung
         public int Eletkor => DateTime.Now.Year - SzuletesiEv;
         public int Suly { get; set; }
         public int Magassag { get; set; }
-        public bool Dohanyzik { get; set; }
+        public string Dohanyzik { get; set; }
         public string Nemzetiseg { get; set; }
         public string Nepcsoport { get; set; }
         public string Tartomany { get; set; }
@@ -36,7 +36,7 @@ namespace Bevolkerung
             SzuletesiEv = int.Parse(adatok[2]);
             Suly = int.Parse(adatok[3]);
             Magassag = int.Parse(adatok[4]);
-            Dohanyzik = adatok[5] == "igen";
+            Dohanyzik = adatok[5];
             Nemzetiseg = adatok[6];
             Nepcsoport = adatok[7];
             Tartomany = adatok[8];
@@ -44,9 +44,9 @@ namespace Bevolkerung
             IskolaiVegzettseg = adatok[10];
             PolitikaiNezet = adatok[11];
             AktivSzavazo = adatok[12] == "igen";
-            if (adatok[13] == "NA") { SorFogyasztasEvente = 0; }
+            if (adatok[13] == "NA") { SorFogyasztasEvente = -1; }
             else SorFogyasztasEvente = int.Parse(adatok[13]);
-            if (adatok[14] == "NA") { KrumpliFogyasztasEvente = 0; }
+            if (adatok[14] == "NA") { KrumpliFogyasztasEvente = -1; }
             else KrumpliFogyasztasEvente = int.Parse(adatok[14]);
         }
 
@@ -64,7 +64,7 @@ namespace Bevolkerung
 
         public override string ToString()
         {
-            return $"{Id}\t{Nem}\t{SzuletesiEv}\t{Eletkor}\t{Suly}\t{Magassag}\t{(Dohanyzik ? "igen" : "nem")}\t{Nemzetiseg}\t{Nepcsoport}\t{Tartomany}\t{NettoJovedelem}\t{HaviNettoJovedelem}\t{IskolaiVegzettseg}\t{PolitikaiNezet}\t{(AktivSzavazo ? "igen" : "nem")}\t{SorFogyasztasEvente}\t{KrumpliFogyasztasEvente}";
+            return $"{Id}\t{Nem}\t{SzuletesiEv}\t{Eletkor}\t{Suly}\t{Magassag}\t{Dohanyzik}\t{Nemzetiseg}\t{Nepcsoport}\t{Tartomany}\t{NettoJovedelem}\t{HaviNettoJovedelem}\t{IskolaiVegzettseg}\t{PolitikaiNezet}\t{AktivSzavazo}\t{SorFogyasztasEvente}\t{KrumpliFogyasztasEvente}";
         }
     }
    
