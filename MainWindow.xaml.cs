@@ -92,14 +92,52 @@ namespace Bevolkerung
         private void Feladat12()
         {
             Reset();
-            MegoldasLista.ItemsSource = Lakossag.Where(x => x.Nemzetiseg == "német")
+
+            MegoldasLista.ItemsSource = Lakossag
+                .Where(x => x.Nemzetiseg == "német")
                 .GroupBy(x => x.Nepcsoport)
-                .SelectMany(csoport => new[] {new { csoport.Key }} //szar
-                .Concat(csoport.Select(x => new
+                .SelectMany(group =>
                 {
-                    Tartalom = $"{(x.AktivSzavazo ? "aktív szavazó" : "nem aktív szavazó")}, {x.PolitikaiNezet}"
-                })))
+                    var sorok = new List<string> { group.Key };
+
+                    sorok.AddRange(group.Select(person =>
+                        $"    {(person.AktivSzavazo ? "aktív szavazó" : "nem aktív szavazó")} - {person.PolitikaiNezet}"
+                    ));
+
+                    return sorok;
+                })
                 .ToList();
+
+
+        }
+        private void Feladat13()
+        {
+            Reset();
+            MegoldasMondatos.Content = $"A férfiak átlagos sörfogysztása évent: {
+                Lakossag.Where(x => x.Nem == "férfi" && x.SorFogyasztasEvente != -1)
+                .Average(x => x.SorFogyasztasEvente) : 0.00}";
+        }
+        private void Feladat14()
+        {
+            Reset();
+            MegoldasLista.ItemsSource = Lakossag
+                .GroupBy(x => x.IskolaiVegzettseg)
+                .OrderBy(group => group.Key)
+                .SelectMany(group =>
+                {
+                    var sorok = new List<string> { group.Key };
+
+                    sorok.AddRange(group.Select(person => $"    {person.Id} ({person.SzuletesiEv})"));
+
+                    return sorok;
+                })
+                .ToList();
+        }
+
+        private void Feladat15()
+        {
+            Reset();
+
         }
     }
 }
