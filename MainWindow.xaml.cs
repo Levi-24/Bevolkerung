@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Ink;
 
 namespace Bevolkerung
 {
@@ -133,11 +135,59 @@ namespace Bevolkerung
                 })
                 .ToList();
         }
-
         private void Feladat15()
         {
             Reset();
+            var temp = Lakossag.OrderBy(x => x.NettoJovedelem).Select(x => x.ToString(false)).Take(3).ToList();
+            temp.AddRange(Lakossag.OrderByDescending(x => x.NettoJovedelem).Select(x => x.ToString(false)).Take(3).ToList());
 
+            MegoldasLista.ItemsSource = temp;
+        }
+        private void Feladat16()
+        {
+            Reset();
+            MegoldasMondatos.Content = Math.Round((float)Lakossag.Where(x => x.AktivSzavazo).Count() / Lakossag.Count()*100, 2);
+        }
+        private void Feladat17()
+        {
+            Reset();
+            var temp = Lakossag
+                .Where(x => x.AktivSzavazo)
+                .GroupBy(x => x.Tartomany)
+                .SelectMany(group =>
+                {
+                    var sorok = new List<string> { group.Key };
+                    sorok.AddRange(group.Select(person => $"    {person.Id}, {person.SzuletesiEv}, {person.Nem}, {person.Suly}, {person.Magassag}, {person.Dohanyzik}, {person.Nemzetiseg}, {person.Nepcsoport}, {person.Tartomany}, {person.NettoJovedelem}, {person.IskolaiVegzettseg}, {person.PolitikaiNezet}, {person.AktivSzavazo}, {person.SorFogyasztasEvente}, {person.KrumpliFogyasztasEvente}"));
+                    return sorok;
+                })
+                .ToList();
+
+            MegoldasLista.ItemsSource = temp;
+        }
+        private void Feladat18()
+        {
+            Reset();
+            MegoldasMondatos.Content = Lakossag.Average(x => x.Eletkor);
+        }
+        private void Feladat19()
+        {
+            Reset();
+            var temp = Lakossag.GroupBy(x => x.Tartomany)
+                .Select(group => new
+                {
+                    Tartomany = group.Key,
+                    AtlagJovedelem = group.Average(x => x.NettoJovedelem),
+                    LakossagSzama = group.Count()
+                })
+                .ToList();
+
+            var maxAtlag = temp.Max(x => x.AtlagJovedelem);
+
+            var legmagasabbAtlagTartomany = temp.Where(x => x.AtlagJovedelem == maxAtlag)
+                .OrderByDescending(x => x.LakossagSzama)
+                .ToList();
+
+            MegoldasLista.ItemsSource = legmagasabbAtlagTartomany;
         }
     }
 }
