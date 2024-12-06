@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -190,7 +191,7 @@ namespace Bevolkerung
         }
         private void Feladat20()
         {
-
+            Console.WriteLine("dsadsa");
         }
     }
 }
