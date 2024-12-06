@@ -191,7 +191,7 @@ namespace Bevolkerung
         }
         private void Feladat20()
         {
-            Console.WriteLine("dsadsa");
+            Console.WriteLine("dsadsa"); 
         }
     }
 }
